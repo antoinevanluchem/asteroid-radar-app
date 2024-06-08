@@ -1,6 +1,7 @@
 package com.udacity.asteroidradar.api
 
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants
 import org.json.JSONObject
 import retrofit2.Retrofit
@@ -25,13 +26,11 @@ object NasaService {
         .build()
         .create(ServiceInterface::class.java)
 
-    private val api_key = ""
-
     //
     // Public interface
     //
     suspend fun getAsteroids() : List<Asteroid> {
-        val asteroidsJsonResult = JSONObject(service.getAsteroids(api_key))
+        val asteroidsJsonResult = JSONObject(service.getAsteroids(BuildConfig.NASA_API_KEY))
         return parseAsteroidsJsonResult(asteroidsJsonResult)
     }
 }

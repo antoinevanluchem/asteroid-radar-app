@@ -6,6 +6,24 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+def getApiKey(service) {
+    Properties properties = new Properties()
+    File localPropertiesFile = project.rootProject.file('local.properties')
+
+    if (!localPropertiesFile.exists()) {
+        throw new GradleException("local.properties file not found.")
+    }
+
+    properties.load(localPropertiesFile.newDataInputStream())
+    String apiKey = properties.getProperty(service + "_api_key")
+
+    if (apiKey == null) {
+        throw new GradleException("api_key not found in local.properties. Please check snake_case naming convention, if you are sure you added your api key to the local.properties!")
+    }
+
+    return apiKey
+}
+
 android {
     namespace 'com.udacity.asteroidradar'
     compileSdk 33
@@ -17,6 +35,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NASA_API_KEY", "\"" + getApiKey("nasa") + "\""
     }
     buildTypes {
         release {
@@ -78,4 +97,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:5.0.1"
 }
