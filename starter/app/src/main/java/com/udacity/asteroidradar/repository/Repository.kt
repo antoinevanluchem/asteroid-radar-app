@@ -5,14 +5,13 @@ import com.udacity.asteroidradar.api.Network
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class Repository {
-
+class AsteroidsRepository {
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {
                 val asteroids = Network.nasa.getAsteroids()
             } catch (e: Exception) {
-                Log.e("Failure: ", )
+                Log.e("Failure: ", e.toString())
             }
         }
     }
