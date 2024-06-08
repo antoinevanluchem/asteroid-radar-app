@@ -6,7 +6,7 @@ import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
-    private val asteroidsRepository = AsteroidsRepository()
+    val asteroidsRepository = AsteroidsRepository()
 
     init {
         viewModelScope.launch {
