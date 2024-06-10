@@ -6,18 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.database.NasaDatabase
-import com.udacity.asteroidradar.repository.AsteroidsRepository
+import com.udacity.asteroidradar.repository.NasaRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = NasaDatabase.getInstance(application)
-    private val asteroidsRepository = AsteroidsRepository(database)
-    val asteroids = asteroidsRepository.asteroids
+    private val nasaRepository = NasaRepository(database)
+    val asteroids = nasaRepository.asteroids
+    val pictureOfDay = nasaRepository.pictureOfDay
 
     init {
         viewModelScope.launch {
-            asteroidsRepository.refreshAsteroids()
+            nasaRepository.refreshAsteroids()
+            nasaRepository.refreshPictureOfDay()
         }
     }
 
