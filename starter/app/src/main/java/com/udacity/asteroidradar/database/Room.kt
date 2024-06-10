@@ -10,20 +10,24 @@ import com.udacity.asteroidradar.database.AsteroidDao
 @Database(entities = [Asteroid::class], version = 1)
 abstract class NasaDatabase : RoomDatabase() {
     abstract val asteroidDao: AsteroidDao
-}
 
-private lateinit var INSTANCE: NasaDatabase
+    companion object {
+        private lateinit var INSTANCE: NasaDatabase
 
-fun getDatabase(context: Context): NasaDatabase {
-    synchronized(NasaDatabase::class.java) {
-        if (!::INSTANCE.isInitialized) {
-            INSTANCE = Room.databaseBuilder(context.applicationContext,
-                NasaDatabase::class.java,
-                "nasa_database").build()
+        fun getInstance(context: Context): NasaDatabase {
+            synchronized(NasaDatabase::class.java) {
+                if (!::INSTANCE.isInitialized) {
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,
+                        NasaDatabase::class.java,
+                        "nasa_database").build()
+                }
+            }
+            return INSTANCE
         }
     }
-    return INSTANCE
 }
+
+
 
 
 
