@@ -1,5 +1,7 @@
 package com.udacity.asteroidradar.api
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.Constants
@@ -23,7 +25,7 @@ object NasaService {
         @GET("planetary/apod")
         suspend fun getPictureOfDay(
             @Query("api_key") api_key: String
-        ): PictureOfDay
+        ): String
 
     }
 
@@ -42,6 +44,14 @@ object NasaService {
     }
 
     suspend fun getPictureOfDay() : PictureOfDay {
-        return service.getPictureOfDay(BuildConfig.NASA_API_KEY)
+        val response = service.getPictureOfDay(BuildConfig.NASA_API_KEY)
+
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+            .adapter(PictureOfDay::class.java)
+            .fromJson(response)
+            ?:
+            PictureOfDay("", "", "")
     }
 }
