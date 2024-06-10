@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = NasaDatabase.getInstance(application)
-    val asteroidsRepository = AsteroidsRepository(database)
+    private val asteroidsRepository = AsteroidsRepository(database)
+    val asteroids = asteroidsRepository.asteroids
 
     init {
         viewModelScope.launch {
