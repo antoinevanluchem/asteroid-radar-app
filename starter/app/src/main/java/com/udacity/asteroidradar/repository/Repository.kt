@@ -20,7 +20,7 @@ class NasaRepository(private val nasaDatabase: NasaDatabase){
                 nasaDatabase.asteroidDao.insertAll(*asteroids.toTypedArray())
                 Timber.i("Successfully refreshed the asteroids: $asteroids")
             } catch (e: Exception) {
-                Timber.i("Something went wrong while refreshing the asteroids: $e")
+                Timber.e("Something went wrong while refreshing the asteroids: $e")
             }
         }
     }
@@ -32,7 +32,7 @@ class NasaRepository(private val nasaDatabase: NasaDatabase){
                 nasaDatabase.pictureOfDayDao.insert(pictureOfDay)
                 Timber.i("Successfully fetched pictureOfDay: ${pictureOfDay.title}")
             } catch (e: Exception) {
-                Timber.i("Something went wrong while fetching pictureOfDay: $e")
+                Timber.e("Something went wrong while fetching pictureOfDay: $e")
             }
         }
     }
