@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/show_all_asteroids"
+        android:id="@+id/show_week_asteroids"
         android:title="@string/next_week_asteroids" />
     <item
         android:id="@+id/show_today_asteroids"

@@ -6,6 +6,7 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.Network
 import com.udacity.asteroidradar.database.NasaDatabase
+import com.udacity.asteroidradar.database.getLastDayOfWeekFormattedDate
 import com.udacity.asteroidradar.database.getTodayFormattedDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,10 +17,11 @@ class NasaRepository(application: Context){
     private val nasaDatabase = NasaDatabase.getInstance(application)
 
     var asteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAll()
-    var todayAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidWith(closeApproachDate = getTodayFormattedDate())
+    var todayAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidsWith(closeApproachDate = getTodayFormattedDate())
+    var weekAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidsWithCloseApproachDateBetween(start = getTodayFormattedDate(), end = getLastDayOfWeekFormattedDate())
     var pictureOfDay: LiveData<PictureOfDay> = nasaDatabase.pictureOfDayDao.get()
 
-    /** This function refreshes the `asteroids` and `todayAsteroids` attributes. **/
+    /** This function refreshes the `asteroids`, `todayAsteroids` and `weekAsteroids` attributes. **/
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {

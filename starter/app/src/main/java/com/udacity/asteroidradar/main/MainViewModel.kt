@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             nasaRepository.refreshPictureOfDay()
 
             // Show all asteroids on startup
-            showAllAsteroids()
+            showSavedAsteroids()
         }
     }
 
@@ -47,12 +47,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun showAllAsteroids() {
+    fun showSavedAsteroids() {
         setAsteroidsSource(nasaRepository.asteroids)
     }
 
     fun showTodayAsteroids() {
         setAsteroidsSource(nasaRepository.todayAsteroids)
+    }
+
+    fun showWeekAsteroids() {
+        setAsteroidsSource(nasaRepository.weekAsteroids)
     }
 
     //
