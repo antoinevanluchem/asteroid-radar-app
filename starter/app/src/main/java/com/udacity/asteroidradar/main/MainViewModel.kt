@@ -15,8 +15,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val database = NasaDatabase.getInstance(application)
-    private val nasaRepository = NasaRepository(database)
+    private val nasaRepository = NasaRepository(application)
 
     init {
         viewModelScope.launch {
@@ -27,6 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             showAllAsteroids()
         }
     }
+
     val pictureOfDay = nasaRepository.pictureOfDay
 
     //

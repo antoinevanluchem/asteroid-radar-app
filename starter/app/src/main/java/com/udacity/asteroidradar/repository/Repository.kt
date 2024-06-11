@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar.repository
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
@@ -10,12 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class NasaRepository(private val nasaDatabase: NasaDatabase){
+class NasaRepository(application: Application){
+
+    private val nasaDatabase = NasaDatabase.getInstance(application)
+
     var asteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAll()
     var todayAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidWith(closeApproachDate = getTodayFormattedDate())
     var pictureOfDay: LiveData<PictureOfDay> = nasaDatabase.pictureOfDayDao.get()
 
-    // This function refreshes the `asteroids` and `todayAsteroids` attributes.
+    /** This function refreshes the `asteroids` and `todayAsteroids` attributes. **/
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {
