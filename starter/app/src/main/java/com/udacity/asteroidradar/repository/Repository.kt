@@ -5,14 +5,17 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.Network
 import com.udacity.asteroidradar.database.NasaDatabase
+import com.udacity.asteroidradar.database.getTodayFormattedDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class NasaRepository(private val nasaDatabase: NasaDatabase){
     var asteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAll()
+    var todayAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidWith(closeApproachDate = getTodayFormattedDate())
     var pictureOfDay: LiveData<PictureOfDay> = nasaDatabase.pictureOfDayDao.get()
 
+    // This function refreshes the `asteroids` and `todayAsteroids` attributes.
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             try {

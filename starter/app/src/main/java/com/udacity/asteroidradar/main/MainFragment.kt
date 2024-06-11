@@ -51,6 +51,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.show_all_asteroids -> viewModel.showAllAsteroids()
+            R.id.show_today_asteroids -> viewModel.showTodayAsteroids()
+            else -> viewModel.showAllAsteroids()
+        }
+
         return true
     }
 }
