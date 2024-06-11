@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
 
 @BindingAdapter("statusIcon")
@@ -56,15 +57,44 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
     adapter.submitList(data)
 }
 
-@BindingAdapter("imageUrl")
-fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        Glide.with(imgView.context)
-            .load(imgUrl)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.placeholder_picture_of_day)
-                    .error(R.drawable.broken_image))
-            .into(imgView)
+@BindingAdapter("pictureOfDayImg")
+fun bindPictureOfDayImg(imageView: ImageView, pictureOfDay: PictureOfDay?) {
+    val context = imageView.context
+
+    if (pictureOfDay == null) {
+        imageView.apply {
+            setImageResource(R.drawable.placeholder_picture_of_day)
+            contentDescription = context.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
+        }
+        return
     }
+
+    if (pictureOfDay.url.isBlank()) {
+        imageView.apply {
+            setImageResource(R.drawable.broken_image)
+            contentDescription = context.getString(R.string.this_is_nasa_s_picture_of_day_but_something_went_wrong_while_fetching)
+        }
+        return
+    }
+
+    Picasso.with(context)
+        .load(pictureOfDay.url)
+        .placeholder(R.drawable.placeholder_picture_of_day)
+        .error(R.drawable.broken_image)
+        .fit()
+        .centerCrop()
+        .into(imageView, object : com.squareup.picasso.Callback {
+            override fun onSuccess() {
+                imageView.contentDescription = String.format(
+                    context.getString(R.string.nasa_picture_of_day_content_description_format),
+                    pictureOfDay.title
+                )
+            }
+
+            override fun onError() {
+                imageView.contentDescription =
+                    context.getString(R.string.this_is_nasa_s_picture_of_day_but_something_went_wrong_while_fetching)
+            }
+        })
 }
+
