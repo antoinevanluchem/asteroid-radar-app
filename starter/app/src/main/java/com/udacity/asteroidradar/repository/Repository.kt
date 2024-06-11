@@ -18,7 +18,7 @@ class NasaRepository(application: Context){
 
     var asteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAll()
     var todayAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidsWith(closeApproachDate = getTodayFormattedDate())
-    var weekAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidsWithCloseApproachDateBetween(start = getTodayFormattedDate(), end = getLastDayOfWeekFormattedDate())
+    var weekAsteroids: LiveData<List<Asteroid>> = nasaDatabase.asteroidDao.getAsteroidsBetween(start = getTodayFormattedDate(), end = getLastDayOfWeekFormattedDate())
     var pictureOfDay: LiveData<PictureOfDay> = nasaDatabase.pictureOfDayDao.get()
 
     /** This function refreshes the `asteroids`, `todayAsteroids` and `weekAsteroids` attributes. **/

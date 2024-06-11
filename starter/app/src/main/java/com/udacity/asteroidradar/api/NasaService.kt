@@ -29,6 +29,7 @@ object NasaService {
 
     }
 
+    /** Keep the service encapsulated such that we can provide our public interface to the app. */
     private val service = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -36,7 +37,7 @@ object NasaService {
         .create(ServiceInterface::class.java)
 
     //
-    // Public interface
+    // Public facade
     //
     suspend fun getAsteroids() : List<Asteroid> {
         val asteroidsJsonResult = JSONObject(service.getAsteroids(BuildConfig.NASA_API_KEY))

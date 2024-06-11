@@ -34,9 +34,7 @@ class MainFragment : Fragment() {
 
         viewModel.navigateToDetails.observe(this, Observer {
             if ( null != it ) {
-                // Must find the NavController from the Fragment
                 this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
-                // Tell the ViewModel we've made the navigate call to prevent multiple navigation
                 viewModel.displayDetailsComplete()
             }
         })
