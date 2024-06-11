@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.database.NasaDatabase
 import com.udacity.asteroidradar.repository.NasaRepository
 import kotlinx.coroutines.launch
 

@@ -1,6 +1,6 @@
 package com.udacity.asteroidradar.repository
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.PictureOfDay
@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class NasaRepository(application: Application){
+class NasaRepository(application: Context){
 
     private val nasaDatabase = NasaDatabase.getInstance(application)
 
