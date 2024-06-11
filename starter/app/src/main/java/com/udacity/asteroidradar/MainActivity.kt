@@ -8,6 +8,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.udacity.asteroidradar.work.DeleteDataWork
 import com.udacity.asteroidradar.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +39,13 @@ class MainActivity : AppCompatActivity() {
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
             RefreshDataWorker.WORK_NAME,
+            ExistingPeriodicWorkPolicy.KEEP,
+            repeatingRequest)
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            DeleteDataWork.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest)
     }

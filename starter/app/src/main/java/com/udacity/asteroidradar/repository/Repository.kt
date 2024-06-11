@@ -43,4 +43,10 @@ class NasaRepository(application: Context){
             }
         }
     }
+
+    suspend fun deletePreviousDaysAsteroids() {
+        withContext(Dispatchers.IO) {
+            nasaDatabase.asteroidDao.deleteAsteroidsBefore(closeApproachDate = getTodayFormattedDate())
+        }
+    }
 }
