@@ -1,3 +1,57 @@
+# Code Review 
+
+## Reviewer Note
+> Hello Dear Student!
+>
+> Your code is very clean, clear, and professional, so great work on this!
+> 
+> The app behavior is very good, the list of asteroids shows on the main screen very quickly when it starts. 👍
+> 
+> The API key is very sensitive information, great job hiding it so well. 👍
+> 
+> Awesome work displaying the asteroids in the list so nicely, but maybe next time that you need it, you could use the CardView(opens in a new tab) widget that will help you design these elements easily.
+> 
+> You must be proud of yourself since not many students pass this project on the first try. 💪
+> 
+> Now, you can continue with the lessons and overall, have fun while coding!
+
+## RecyclerView 
+✅ Create and reuse views in an Android app using `RecyclerView`
+> The list of asteroids is correctly displayed on the main screen by using RecyclerView, an improved version of the old ListView. RecyclerView recycles the views created at the beginning when the views go out of scope, and reuses them when needed to make it seem as if the views were never offloaded and were virtually present outside the window.
+> 
+> This makes a better performance of the list of data in your app, overall when the list contains many elements.
+> When the user clicks on any item in the list, the app opens the detail view of the selected element.
+
+## Network 
+✅ Build an application that connects to an internet server to retrieve and display live data
+> Only the strictly needed permissions have been added in the Manifest file.
+> The NASA API has been used to download the asteroids. Retrofit and Moshi have been correctly used for retrieving and parsing the data from the API.
+>
+
+✅ Use networking an dimage best practices to fetch data and images
+> As seen in the image above, the image of the day is correctly displayed on the main screen.
+>
+
+## Database and Caching 
+✅ Create a database to store and access user data over time
+> The asteroids are correctly saved in the database as the Android Studio database inspector shows in this image.
+> The app filters asteroids from the past. The user correctly can choose from different options.
+>
+
+✅ Implement offline caching to allow users to interact with online content offline 
+> The app downloads the next 7 days asteroids and saves them in the database once a day using workManager with requirements of internet connection and device plugged in.
+>
+A You can find [at this link](https://developer.android.com/topic/libraries/architecture/workmanager/how-to/integration-testing) from the Android Official Documentation, instructions on how to test the WorkManager.
+>
+> The app can display saved asteroids from the database even if an internet connection is not available.
+>
+
+## Accessibility 
+✅ Add talkback and push-button navigation to make an Android app accessible
+> The talkback mode works correctly. Great job adding good descriptions in all the needed places.
+>
+> Please, take a look [at this link](https://developer.android.com/guide/topics/ui/accessibility/apps) for more details.
+
 # Project Title
 
 Asteroid Radar
